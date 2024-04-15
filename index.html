@@ -2,15 +2,25 @@
 <html>
 <head>
     <title>Interactive Map of India</title>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    
     <style>
-        #mapid { height: 700px; }
-
-
+       
         *{padding: 0; margin: 0; box-sizing: border-box;}
-        body{height: 900px;}
+        body{
+            height: 900px;
+            background-image: url(bg20.jpg);
+            background-repeat: no-repeat;
+            background-position: right top;
+            background-attachment:fixed;
+        }
         header {
-            background: url('r2.png');
+            background:rgba(255, 255, 255, 0.5);
             text-align: center;
             width: 100%;
             height: 30%;
@@ -26,12 +36,12 @@
             padding: 50px;
             color: #FFF;
             text-shadow: 1px 1px 1px #333;
-        background-image: linear-gradient( 135deg, #9f05ff69 10%, #fd5e086b 100%);
+            /*background-image: linear-gradient( 135deg, #9f05ff69 10%, #fd5e086b 100%);*/
             
         }
 
         h1 {
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Times New Roman', cursive;
             font-size: 80px;
             margin-bottom: 30px;
         }
@@ -56,6 +66,34 @@
         }
 
 
+
+        #map-container {
+            position: relative;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #map {
+            position:relative;
+            width: 90%;
+            height: 90%;
+            border-radius: 30px;
+        }
+
+        #myChart {
+            position: absolute;
+            bottom: 25px;
+            right: 80px;
+            z-index: 1000;
+            width: 500px; /* Adjust as needed */
+            height: 350px; /* Adjust as needed */
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+
+
     </style>
 </head>
 
@@ -73,116 +111,186 @@
         </div>
     </header>
 
+    <br>
+    <br>
 
-    <div style="width: 100%; padding: 20px; box-sizing: border-box; background-color: #e8f5e9; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
-        <p style="font-family: 'Arial', sans-serif; color: #2e7d32;">
-            Insert your 500-rd text here. This is a placeholder for your text. You can replace this with your actual content. This container is designed to hold a large amount of text, and it will automatically wrap the text to fit within the width of the container. The padding around the text ensures that it doesn't touch the edges of the container, providing a better reading experience. The box-sizing property is set to border-box to include the padding in the container's width, ensuring that the container doesn't exceed the width of its parent.
-        </p>
-    </div>
-    
-    <div id="mapid"></div>
-
-
-
-    <div id="mapid"></div>
-
-    <div id="chartContainer" style="position: absolute; bottom: -350px; right: 20px; width: 30%; height: 30%; background-color: rgba(255, 255, 255, 0.8); padding: 10px; border-radius: 5px; z-index: 1000;">
-        <canvas id="myChart"></canvas>
+    <div style="display: flex; justify-content: center;">
+        <div style="display: flex; justify-content: center; align-items: center; width: 90%; padding: 20px; box-sizing: border-box; background-color: rgba(255, 255, 255, 0.4); border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+            <p style="font-family: 'Lucida Bright', sans-serif; color: #000000; font-size: 20px;">
+                This page shows the total energy consumption of different states in India through the year 2023. <br>
+                The aim of this page is to analyse the data with the help of visual representation and help the users to understand the current need of the country. <br>
+                This map enables us to determine our dependence on different kinds of energy resources, renewable and non-renewable, and make an educated decision for the welfare of our country. <br>
+                This map can be further used to understand how much energy is being produced by each state and therefore understand the flow of resources from here. <br>
+                The map aims to provide the users with useful information in an intuitive and easy to digest manner so that even the general public can understand the seemingly difficult words and numbers.</p>
+        </div>
     </div>
 
+    <br>
+    <br>
 
-    <footer style="position:relative; left: 0; bottom: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px;">
-        Copyright © 2022 Your Company Name
+    <div id="map-container">
+        <div id="map" style="height: 600px;"></div>
+        <canvas id="myChart" style="height: 350px; width: 500px"></canvas>
+        <div id="stateName" style="background-color: rgba(255, 255, 255, 0.8); position: absolute; font-size: 20px; bottom: 2px; right: 270px; z-index: 1000;"></div>
+    </div>
+
+    <br>
+    <br>
+
+    <footer style="position:relative; left: 0; bottom: 0; width: 100%; background-color: #333; color: white; text-align: center; padding: 10px; border-radius: 10px;">
+        © This a project for the course CHE-110 by Pari Gaur, Sahil and Saurabh Mishra
         <br>
         <br>
         <div>
-            <a href="mailto:person1@example.com" style="color: white; margin: 0 50px;">Person 1 Email</a>
-            <a href="https://www.linkedin.com/in/person1-linkedin-id" style="color: white; margin: 0 50px;">Person 1 LinkedIn</a>
-            <a href="https://github.com/person1-github-id" style="color: white; margin: 0 50px;">Person 1 GitHub</a>
+            <a href="mailto:person1@example.com" style="color: white; margin:0px 50px 0px 0px;">Pari Gaur</a>
+            <a href="https://www.linkedin.com/in/person1-linkedin-id" style="color: white; margin:0px 50px 0px 30px;">Sahil</a>
+            <a href="https://github.com/person1-github-id" style="color: white; margin:0px 50px 0px 30px;">Saurabh Mishra</a>
         </div>
         <div>
-            <a href="mailto:person2@example.com" style="color: white; margin: 0 50px;">Person 2 Email</a>
-            <a href="https://www.linkedin.com/in/person2-linkedin-id" style="color: white; margin: 0 50px;">Person 2 LinkedIn</a>
-            <a href="https://github.com/person2-github-id" style="color: white; margin: 0 50px;">Person 2 GitHub</a>
+            <a href="mailto:person2@example.com" style="color: white; margin:0px 50px 0px -25px;">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/person2-linkedin-id" style="color: white; margin:0px 50px 0px 25px;">LinkedIn</a>
+            <a href="https://github.com/person2-github-id" style="color: white; margin:0px 50px 0px 25px;">LinkedIn</a>
         </div>
         <div>
-            <a href="mailto:person3@example.com" style="color: white; margin: 0 50px;">Person 3 Email</a>
-            <a href="https://www.linkedin.com/in/person3-linkedin-id" style="color: white; margin: 0 50px;">Person 3 LinkedIn</a>
-            <a href="https://github.com/person3-github-id" style="color: white; margin: 0 50px;">Person 3 GitHub</a>
+            <a href="mailto:person3@example.com" style="color: white; margin:0px 50px 0px -30px;">GitHub</a>
+            <a href="https://www.linkedin.com/in/person3-linkedin-id" style="color: white; margin:0px 50px 0px 35px;">GitHub</a>
+            <a href="https://github.com/person3-github-id" style="color: white; margin:0px 50px 0px 40px;">GitHub</a>
         </div>
     </footer>
 
 
+    <!-- ... existing code ... -->
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('mapid').setView([20.5937, 78.9629], 5); // Coordinates for India
+<script>
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Set the view to the coordinates of India
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
 
-        var stateData = {
-            "Telangana": "wind energy= 10MW, Hydro energy= 20MW, 30",
-            "Punjab": "wind energy: 20MW, Hydro energy: 30MW, 50",
-            // Add more states here...
+
+    var stateData = {
+        "Andaman and Nicobar Islands": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=5.25, Solar=29.91, Wind=0",
+        "Andhra Pradesh": "Bio Power=566.39, Coal=13190, Hydro=1610, Nuclear=0, Oil & Gas=4898.544, Small-Hydro=163.31, Solar=4566.85, Wind=4096.65",
+        "Arunachal Pradesh": "Bio Power=0, Coal=0, Hydro=1259.795, Nuclear=0, Oil & Gas=0, Small-Hydro=133.105, Solar=11.79, Wind=0",
+        "Assam": "Bio Power=2, Coal=750, Hydro=350, Nuclear=0, Oil & Gas=597.355, Small-Hydro=34.11, Solar=155.8, Wind=0",
+        "Bihar": "Bio Power=126.02, Coal=9060, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=70.7, Solar=223.55, Wind=0",
+        "Chandigarh": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=0, Solar=64.05, Wind=0",
+        "Chhattisgarh": "Bio Power=275, Coal=23688, Hydro=120, Nuclear=0, Oil & Gas=0, Small-Hydro=76, Solar=1204.01, Wind=0",
+        "Dadra and Nagar Haveli": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=0, Solar=5.46, Wind=0",
+        "Daman and Diu": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=0, Solar=41.01, Wind=0",
+        "Delhi": "Bio Power=84, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=2208.4, Small-Hydro=0, Solar=237.29, Wind=0",
+        "Goa": "Bio Power=1.94, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=48, Small-Hydro=0.05, Solar=35.76, Wind=0",
+        "Gujarat": "Bio Power=112.48, Coal=16092, Hydro=1990, Nuclear=1140, Oil & Gas=7696.41, Small-Hydro=91.64, Solar=10760.97, Wind=11249.02",
+        "Haryana": "Bio Power=265.7, Coal=5330, Hydro=0, Nuclear=0, Oil & Gas=431.59, Small-Hydro=73.5, Solar=1323.61, Wind=0",
+        "Himachal Pradesh": "Bio Power=10.2, Coal=0, Hydro=10281.02, Nuclear=0, Oil & Gas=0, Small-Hydro=969.71, Solar=112.79, Wind=0",
+        "Jammu and Kashmir": "Bio Power=0, Coal=0, Hydro=3360, Nuclear=0, Oil & Gas=0, Small-Hydro=161.43, Solar=54.98, Wind=0",
+        "Jharkhand": "Bio Power=14.1, Coal=5570, Hydro=210, Nuclear=0, Oil & Gas=0, Small-Hydro=4.05, Solar=123.72, Wind=0",
+        "Karnataka": "Bio Power=1907.72, Coal=9480, Hydro=3689.2, Nuclear=880, Oil & Gas=0, Small-Hydro=1280.73, Solar=9498.735, Wind=5918.26",
+        "Kashmir": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=175, Small-Hydro=0, Solar=0, Wind=0",
+        "Kerala": "Bio Power=2.5, Coal=0, Hydro=1864.15, Nuclear=0, Oil & Gas=533.58, Small-Hydro=276.52, Solar=860.1, Wind=63.5",
+        "Ladakh": "Bio Power=0, Coal=0, Hydro=89, Nuclear=0, Oil & Gas=0, Small-Hydro=42.99, Solar=7.8, Wind=0",
+        "Lakshwadeep": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=0, Small-Hydro=0, Solar=4.97, Wind=0",
+        "Madhya Pradesh": "Bio Power=134.94, Coal=22000, Hydro=2235, Nuclear=0, Oil & Gas=0, Small-Hydro=123.71, Solar=3295.38, Wind=2844.29",
+        "Maharashtra": "Bio Power=2643.19, Coal=24006, Hydro=3047, Nuclear=1400, Oil & Gas=3207.08, Small-Hydro=382.28, Solar=5713.85, Wind=5195.38",
+        "Manipur": "Bio Power=0, Coal=0, Hydro=105, Nuclear=0, Oil & Gas=0, Small-Hydro=5.45, Solar=13.04, Wind=0",
+        "Meghalaya": "Bio Power=13.8, Coal=0, Hydro=322, Nuclear=0, Oil & Gas=0, Small-Hydro=55.03, Solar=4.19, Wind=0",
+        "Mizoram": "Bio Power=0, Coal=0, Hydro=60, Nuclear=0, Oil & Gas=0, Small-Hydro=45.47, Solar=30.42, Wind=0",
+        "Nagaland": "Bio Power=0, Coal=0, Hydro=75, Nuclear=0, Oil & Gas=0, Small-Hydro=32.67, Solar=3.17, Wind=0",
+        "Odisha": "Bio Power=59.22, Coal=9540, Hydro=2154.55, Nuclear=0, Oil & Gas=0, Small-Hydro=115.63, Solar=480.83, Wind=0",
+        "Puducherry": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=32.5, Small-Hydro=0, Solar=43.34, Wind=0",
+        "Punjab": "Bio Power=532.11, Coal=5680, Hydro=1096.3, Nuclear=0, Oil & Gas=0, Small-Hydro=176.1, Solar=1266.54, Wind=0",
+        "Rajasthan": "Bio Power=125.64, Coal=10780, Hydro=411, Nuclear=1180, Oil & Gas=1022.83, Small-Hydro=23.85, Solar=19510.6, Wind=5195.82",
+        "Sikkim": "Bio Power=0, Coal=0, Hydro=2282, Nuclear=0, Oil & Gas=0, Small-Hydro=55.11, Solar=4.68, Wind=0",
+        "Tamil Nadu": "Bio Power=1043.7, Coal=14099, Hydro=2178.2, Nuclear=2440, Oil & Gas=1017.18, Small-Hydro=123.05, Solar=7507.73, Wind=10458.35",
+        "Telangana": "Bio Power=220.37, Coal=9442.5, Hydro=2405.6, Nuclear=0, Oil & Gas=0, Small-Hydro=90.87, Solar=4712.98, Wind=128.1",
+        "Tripura": "Bio Power=0, Coal=0, Hydro=0, Nuclear=0, Oil & Gas=1067.6, Small-Hydro=16.01, Solar=18.46, Wind=0",
+        "Uttar Pradesh": "Bio Power=2221.64, Coal=25395, Hydro=501.6, Nuclear=440, Oil & Gas=1493.14, Small-Hydro=49.1, Solar=2832.83, Wind=0",
+        "Uttarakhand": "Bio Power=139.74, Coal=0, Hydro=4035.35, Nuclear=0, Oil & Gas=664, Small-Hydro=218.82, Solar=575.53, Wind=0",
+        "West Bengal": "Bio Power=343.46, Coal=13487, Hydro=1341.2, Nuclear=0, Oil & Gas=80, Small-Hydro=98.5, Solar=194.07, Wind=0"
+
         };
 
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Wind Energy', 'Hydro Energy', 'Other'],
-                datasets: [{
-                    label: 'Energy Production',
-                    data: [0, 0, 0],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
 
-        fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson')
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            var geojson = L.geoJson(data, {
-                onEachFeature: function (feature, layer) {
-                    layer.on('click', function () {
-                        var stateName = feature.properties.NAME_1;
-                        var stateDataString = stateData[stateName] || "0, 0, 0";
-                        var stateDataArray = stateDataString.match(/\d+/g).map(Number);
-                        chart.data.datasets[0].data = stateDataArray;
-                        chart.update();
-                    });
-                    layer.bindPopup(feature.properties.NAME_1);
-                }
-            }).addTo(map);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    </script>
-    
+    // Load GeoJSON data for the states of India
+    fetch('https://raw.githubusercontent.com/geohacker/india/master/state/india_telengana.geojson')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+
+        var myChart = null;
+
+
+        L.geoJson(data, {
+            style: function() {
+                return {color: "#377D22"}; // Set the color of the borders
+            },
+            onEachFeature: function(feature, layer) {
+                layer.on('click', function() {
+                    try {
+
+
+                        console.log('Clicked state:', feature.properties.NAME_1);
+
+                        document.getElementById('stateName').textContent = feature.properties.NAME_1;
+
+                        // Get the data for the clicked state
+                        var stateDataString = stateData[feature.properties.NAME_1];
+                        var stateDataArray = stateDataString.split(', ').map(function(item) {
+                            var splitItem = item.split('=');
+                            return {
+                                name: splitItem[0],
+                                value: parseFloat(splitItem[1])
+                            };
+                        });
+
+                        if (myChart) {
+                            myChart.destroy();
+                        }
+
+                        var colors = ['rgba(117, 249, 77, 0.2)', 
+                        'rgba(235, 51, 36, 0.2)', 
+                        'rgba(117, 249, 77, 0.2)', 
+                        'rgba(235, 51, 36, 0.2)', 
+                        'rgba(235, 51, 36, 0.2)', 
+                        'rgba(117, 249, 77, 0.2)',
+                        'rgba(117, 249, 77, 0.2)',
+                        'rgba(117, 249, 77, 0.2)'];
+
+                        // Create a chart for the state data
+                        var ctx = document.getElementById('myChart').getContext('2d');
+                        myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: stateDataArray.map(function(item) { return item.name; }),
+                                datasets: [{
+                                    label: 'Energy Consumption (in MW)',
+                                    data: stateDataArray.map(function(item) { return item.value; }),
+                                    backgroundColor: colors,
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    } catch (error) {
+                        console.error('An error occurred while creating the chart:', error);
+                    }
+                });
+            }
+        }).addTo(map);
+    });
+</script>
     
 </body>
 </html>
